@@ -6,6 +6,28 @@ provider:
   runtime: nodejs12.x
   lambdaHashingVersion: '20201221'
   region: 'us-east-2'
+  iamRoleStatement: 
+    Effect: Allow
+    Action:
+      dynamodb: *
+    Resource: arn:aws:dynamodb:us-east-2:537778070242:table/users-FTAPI
+
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users-FTAPI
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: IdUser
+            AttributeType: N
+        KeySchema:
+          - AttributeName: IdUser
+            KeyType: HASH
+
+
 
 functions:
   hello:
@@ -20,3 +42,9 @@ functions:
       - httpApi:
           path: /signup
           method: get
+  signin:
+    handler: users.signin
+    events:
+      - httpApi:
+          path: /signin
+          method: get     

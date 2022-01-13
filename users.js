@@ -1,13 +1,29 @@
-module.exports.signup = async (event) => {
+module.exports = {
+
+  signup: async (event) => {
     return {
       statusCode: 200,
       body: JSON.stringify(
         {
           message: "Signup successfully!",
-          input: event,
         },
         null,
         2
       ),
-    };
-  };
+    }
+  },
+
+  signin: async (event) => {
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: "Signin successfully!",
+        },
+        null,
+        2
+      ),
+    }
+  },
+
+}
