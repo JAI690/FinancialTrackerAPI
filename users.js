@@ -3,22 +3,39 @@ const AWS = require('aws-sdk');
 module.exports = {
 
   signup: async (event) => {
+
+    //Recibir datos
+    const { name,email,password } = JSON.parse(event.body);
     
     const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+    //Generar id
     const id = String(Math.random()).slice(2,7)
+
     const params = {
       Item: {
         'UserId': id,
-        'name' : 'brayan',
-        'email' : 'jai690@hotmail.com',
-        'password' : 'ejemplo'
+        'name' : name,
+        'email' : email,
+        'password' : password
       },
       TableName: 'users',
     }
 
-    return dynamodb.put(params).promise().then(()=>{
-      return id;
-    });
+    //Mensaje de estatus final
+    let message = '';
+
+    //Insertar Item en DB
+    try {
+      await dynamodb.put(params).promise();
+      message = `User with id ${id} created successfully`;
+    } catch (error) {
+      console.log(error);
+      message = `${error}: could not create user.`;
+    }
+
+    //Mandar mensaje de estatus final
+    return message
   },
 
   signin: async (event) => {
