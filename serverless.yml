@@ -49,10 +49,10 @@ functions:
     events:
       - httpApi:
           path: /signup
-          method: get
+          method: post
   signin:
     handler: users.signin
     events:
       - httpApi:
           path: /signin
-          method: get     
+          method: post     
