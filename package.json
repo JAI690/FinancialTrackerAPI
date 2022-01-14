@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JAI690/FinancialTrackerAPI#readme",
   "dependencies": {
-    "aws-sdk": "^2.1057.0"
+    "aws-sdk": "^2.1057.0",
+    "bcryptjs": "^2.4.3"
   }
 }

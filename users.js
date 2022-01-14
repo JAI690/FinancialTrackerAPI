@@ -1,13 +1,18 @@
 const AWS = require('aws-sdk');
+const bcrypt = require('bcryptjs')
 
 module.exports = {
 
   signup: async (event) => {
 
+    const dynamodb = new AWS.DynamoDB.DocumentClient();
+
     //Recibir datos
     const { name,email,password } = JSON.parse(event.body);
-    
-    const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+    //HAshing password
+    const salt = await bcrypt.genSalt(11);
+    const hashPassword = await bcrypt.hash(password, salt);
 
     //Generar id
     const id = String(Math.random()).slice(2,7)
@@ -17,10 +22,12 @@ module.exports = {
         'UserId': id,
         'name' : name,
         'email' : email,
-        'password' : password
+        'password' : hashPassword
       },
       TableName: 'users',
     }
+
+
 
     //Mensaje de estatus final
     let message = '';
