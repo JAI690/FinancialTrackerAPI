@@ -17,7 +17,7 @@ provider:
                 - dynamodb:PutItem
                 - dynamodb:UpdateItem
                 - dynamodb:DeleteItem
-        Resource: arn:aws:dynamodb:us-east-2:537778070242:table/users
+        Resource: arn:aws:dynamodb:us-east-2:537778070242:table/users-FTAPI
 
 
 
@@ -26,13 +26,13 @@ resources:
     UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: users
+        TableName: users-FTAPI
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
-          - AttributeName: UserId
+          - AttributeName: email
             AttributeType: S
         KeySchema:
-          - AttributeName: UserId
+          - AttributeName: email
             KeyType: HASH
 
 
@@ -55,4 +55,16 @@ functions:
     events:
       - httpApi:
           path: /signin
-          method: post     
+          method: post   
+  cognito:
+    handler: users.cognito
+    events:
+      - httpApi:
+          path: /cognito
+          method: get
+  signin2:
+    handler: users.signin2
+    events:
+      - httpApi:
+          path: /signin2
+          method: get  
