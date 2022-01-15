@@ -56,12 +56,6 @@ functions:
       - httpApi:
           path: /signin
           method: post   
-  cognito:
-    handler: users.cognito
-    events:
-      - httpApi:
-          path: /cognito
-          method: get
   signin2:
     handler: users.signin2
     events:
