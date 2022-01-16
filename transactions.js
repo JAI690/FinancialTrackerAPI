@@ -106,7 +106,7 @@ module.exports = {
                 'TRANSACTION_ID' : transactionID,
             },
             UpdateExpression: 
-                "set TRANSACTION_DESCRIPTION = :d, TRANSACTION_CATEGORY = :c, TRANSACTION_SUBCATEGORY = :s, TRANSACTION_PAYMENTMETHOD = :pm, RANSACTION_AMOUNT = :a ,TRANSACTION_DATE = :dt , TRANSACTION_TYPE = :t",
+                "set TRANSACTION_DESCRIPTION = :d, TRANSACTION_CATEGORY = :c, TRANSACTION_SUBCATEGORY = :s, TRANSACTION_PAYMENTMETHOD = :pm, TRANSACTION_AMOUNT = :a ,TRANSACTION_DATE = :dt , TRANSACTION_TYPE = :t",
             ExpressionAttributeValues:{
                 ":d": description,
                 ":c": category,
