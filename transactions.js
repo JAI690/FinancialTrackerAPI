@@ -159,7 +159,8 @@ module.exports = {
         //Obtener transactions en DB
         try {
             const data = await dynamodb.query(params).promise();
-            message = `Transaction with id ${data} was updated successfully`;
+            message = data.Items;
+            console.log(data)
         } catch (error) {
             console.log(error);
             message = `${error}: could not update transaction.`;
@@ -167,7 +168,7 @@ module.exports = {
 
         console.log(message)
 
-       return {message}
+       return message
         
     }
 }
