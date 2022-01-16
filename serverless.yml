@@ -55,10 +55,10 @@ functions:
     events:
       - httpApi:
           path: /signin
-          method: post   
+          method: post
   signin2:
     handler: users.signin2
     events:
       - httpApi:
           path: /signin2
-          method: get  
+          method: get
