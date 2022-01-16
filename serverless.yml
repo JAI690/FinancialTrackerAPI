@@ -18,7 +18,15 @@ provider:
                 - dynamodb:UpdateItem
                 - dynamodb:DeleteItem
         Resource: arn:aws:dynamodb:us-east-2:537778070242:table/users-FTAPI
-
+      - Effect: Allow
+        Action:
+                - dynamodb:Query
+                - dynamodb:Scan
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:UpdateItem
+                - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:us-east-2:537778070242:table/transactions-FTAPI
 
 
 resources:
@@ -34,6 +42,21 @@ resources:
         KeySchema:
           - AttributeName: email
             KeyType: HASH
+    TransactionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: transactions-FTAPI
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: IdUser
+            AttributeType: S
+          - AttributeName: TRANSACTION_ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: IdUser
+            KeyType: HASH
+          - AttributeName: TRANSACTION_ID
+            KeyType: RANGE
 
 
 
@@ -48,17 +71,24 @@ functions:
     handler: auth.signup
     events:
       - httpApi:
-          path: /signup
+          path: /auth/signup
           method: post
   signin:
     handler: auth.signin
     events:
       - httpApi:
-          path: /signin
+          path: /auth/signin
           method: post
   signin2:
-    handler: users.signin2
+    handler: auth.signin2
     events:
       - httpApi:
           path: /signin2
           method: get
+  createTransaction:
+    handler: transactions.create
+    events:
+      - httpApi:
+          path: /transaction/create
+          method: post
+          
