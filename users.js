@@ -107,9 +107,10 @@ module.exports = {
   },
 
   signin2: async (event) => {
-    console.log(event);
-    const message = "HOLA";
-    return message
+
+    const UserId = event.requestContext.succeed.id
+
+    return UserId
   }
 
 }
