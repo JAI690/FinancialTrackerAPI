@@ -77,15 +77,29 @@ module.exports = {
       const data = await dynamodb.get(params).promise();
 
       if(isEmpty(data)){
+        
         message = 'email not found'
+
       }else{
+
         const validPassword = await bcrypt.compare(password, data.Item.password);
 
         if(!validPassword){
+
           message = "password not valid";
+
         }else{
-          const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET)
+
+          const { UserId } = data.Item;
+
+          const payload = {
+            UserId
+          }
+
+          const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '30m'});
+
           message = accessToken;
+
         }
       }
 
@@ -104,6 +118,7 @@ module.exports = {
         2
       ),
     }
+
   },
 
   signin2: async (event) => {
