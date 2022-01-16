@@ -77,7 +77,7 @@ module.exports = {
       const data = await dynamodb.get(params).promise();
 
       if(isEmpty(data)){
-        
+
         message = 'email not found'
 
       }else{
@@ -119,14 +119,5 @@ module.exports = {
       ),
     }
 
-  },
-
-  signin2: async (event) => {
-
-    const UserId = event.requestContext.authorizer.lambda.id;
-
-
-    return UserId
   }
-
 }
