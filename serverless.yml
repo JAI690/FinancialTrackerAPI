@@ -91,4 +91,16 @@ functions:
       - httpApi:
           path: /transaction/create
           method: post
+  editTransaction:
+    handler: transactions.edit
+    events:
+      - httpApi:
+          path: /transaction/edit
+          method: get
+  deleteTransaction:
+    handler: transactions.delete
+    events:
+      - httpApi:
+          path: /transaction/delete/{id}
+          method: get
           

@@ -13,7 +13,9 @@ module.exports = {
         const UserId = String(event.requestContext.authorizer.lambda.id);
 
         //Obtener timestamp
-        const fecha = String(Date.now());
+        const tiempo = Date.now()
+        const date = new Date(tiempo)
+        const fecha = date.toISOString();
 
         //Generar TRANSACTION_ID
         const id = String(Math.random()).slice(2,15)
@@ -24,15 +26,15 @@ module.exports = {
         var params = {
           TableName: tabla,
           Item: {
-            'IdUser' : {S: UserId},
-            'TRANSACTION_ID' : {S: id},
-            'TRANSACTION_DESCRIPTION' : {S: description},
-            'TRANSACTION_CATEGORY' : {S: category},
-            'TRANSACTION_SUBCATEGORY' : {S: subcategory},
-            'TRANSACTION_PAYMENTMETHOD' : {S: paymentMethod},
-            'TRANSACTION_AMOUNT' : {N: amount},
-            'TRANSACTION_DATE' : {S: fecha},
-            'TRANSACTION_TYPE' : {S: type}
+            'IdUser' : UserId,
+            'TRANSACTION_ID' : id,
+            'TRANSACTION_DESCRIPTION' : description,
+            'TRANSACTION_CATEGORY' : category,
+            'TRANSACTION_SUBCATEGORY' : subcategory,
+            'TRANSACTION_PAYMENTMETHOD' : paymentMethod,
+            'TRANSACTION_AMOUNT' : Number(amount),
+            'TRANSACTION_DATE' : fecha,
+            'TRANSACTION_TYPE' : type
           }
         };
 
@@ -47,5 +49,21 @@ module.exports = {
 
         return message
         
+    },
+
+    delete: (event) => {
+        console.log(event);
+
+        return {'event': event};
+    },
+
+    edit: (event) => {
+        console.log(event);
+        return event
+
+    },
+
+    get: (event) => {
+
     }
 }
