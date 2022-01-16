@@ -45,13 +45,13 @@ functions:
           path: /
           method: get
   signup:
-    handler: users.signup
+    handler: auth.signup
     events:
       - httpApi:
           path: /signup
           method: post
   signin:
-    handler: users.signin
+    handler: auth.signin
     events:
       - httpApi:
           path: /signin

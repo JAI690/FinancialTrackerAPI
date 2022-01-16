@@ -108,7 +108,8 @@ module.exports = {
 
   signin2: async (event) => {
 
-    const UserId = event.requestContext.succeed.id
+    const UserId = event.requestContext.authorizer.lambda.id;
+
 
     return UserId
   }
