@@ -67,40 +67,56 @@ functions:
       - httpApi:
           path: /
           method: get
+
+  #### AUTHORIZATION ROUTES
   signup:
     handler: auth.signup
     events:
       - httpApi:
           path: /auth/signup
           method: post
+
   signin:
     handler: auth.signin
     events:
       - httpApi:
           path: /auth/signin
           method: post
+
   signin2:
     handler: auth.signin2
     events:
       - httpApi:
           path: /signin2
           method: get
+
+
+  #### TRANSACTIONS ROUTES          
   createTransaction:
     handler: transactions.create
     events:
       - httpApi:
           path: /transaction/create
           method: post
+
   editTransaction:
     handler: transactions.edit
     events:
       - httpApi:
-          path: /transaction/edit
-          method: get
+          path: /transaction/edit/{id}
+          method: post
+
   deleteTransaction:
     handler: transactions.delete
     events:
       - httpApi:
           path: /transaction/delete/{id}
+          method: post
+
+  getTransaction:
+    handler: transactions.get
+    events:
+      - httpApi:
+          path: /transaction/get
           method: get
           
